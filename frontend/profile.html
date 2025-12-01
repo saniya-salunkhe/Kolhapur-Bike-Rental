@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"><title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-light bg-white shadow-sm">
+    <div class="container"><a class="navbar-brand" href="index.html">🚲 Kolhapur Rentals</a></div>
+  </nav>
+
+  <main class="container py-5">
+    <h2>My Profile</h2>
+    <div id="profileCard" class="card p-4 shadow">
+      <p><strong>Name:</strong> <span id="pfName"></span></p>
+      <p><strong>Email:</strong> <span id="pfEmail"></span></p>
+      <p><strong>Role:</strong> <span id="pfRole"></span></p>
+    </div>
+    <a href="bikes.html" class="btn btn-primary mt-3">Browse Bikes</a>
+  </main>
+
+  <script>
+    // read user stored by main.js on login/register
+    const u = JSON.parse(localStorage.getItem("user") || "null");
+    if (!u) {
+      alert("Not logged in"); location.href = "login.html";
+    } else {
+      document.getElementById("pfName").innerText = u.name || "";
+      document.getElementById("pfEmail").innerText = u.email || "";
+      document.getElementById("pfRole").innerText = u.role || "user";
+    }
+  </script>
+  <script src="assets/script.js"></script>
+</body>
+</html>

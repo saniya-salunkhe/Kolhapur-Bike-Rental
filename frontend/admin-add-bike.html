@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Add Bike</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<nav class="navbar navbar-light bg-white shadow-sm px-3">
+  <a class="navbar-brand" href="admin-dashboard.html">🚲 Kolhapur Rentals (Admin)</a>
+  <button class="btn btn-outline-danger ms-auto" onclick="logout()">Logout</button>
+</nav>
+
+<div class="container mt-4" style="max-width:600px;">
+  <h3 class="text-center">Add New Bike</h3>
+
+  <div class="card p-4 shadow">
+    <input id="name" class="form-control mb-2" placeholder="Bike Name">
+    <input id="price" class="form-control mb-2" placeholder="Price Per Day">
+    <input id="image" class="form-control mb-3" placeholder="Image URL">
+
+    <button onclick="addBike()" class="btn btn-primary w-100">Add Bike</button>
+  </div>
+</div>
+
+<script>
+function logout() {
+  localStorage.removeItem("adminToken");
+  window.location.href = "admin-login.html";
+}
+
+async function addBike() {
+  const token = localStorage.getItem("adminToken");
+
+  if (!token) return alert("Not Authorized, Login Again!");
+
+  const bike = {
+    name: document.getElementById("name").value,
+    price: document.getElementById("price").value,
+    image: document.getElementById("image").value
+  };
+
+  const res = await fetch("http://localhost:5000/api/admin/bikes", {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}` 
+    },
+    body: JSON.stringify(bike)
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    alert("Bike Added Successfully");
+    document.getElementById("name").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("image").value = "";
+  } else {
+    alert(data.message);
+  }
+}
+</script>
+
+</body>
+</html>

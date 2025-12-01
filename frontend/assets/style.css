@@ -1,0 +1,48 @@
+/* HERO */
+.hero {
+  height: 70vh;
+  min-height: 440px;
+  background-image: url('https://t4.ftcdn.net/jpg/02/99/10/57/360_F_299105798_V52AVa1Dq5B8PLN9oiTnUPh8zMLw9wrV.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgb(25, 24, 24); /* default color for text */
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(3,78,162,0.35), rgba(255,106,0,0.15));
+  pointer-events: none;
+  z-index: 0; /* overlay behind text */
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1; /* bring text above overlay */
+}
+
+.hero-tit {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #fff; /* white for better contrast */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* shadow for readability */
+  margin-bottom: 0.5rem;
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: #f50b1b; /* red color for subtitle */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Small responsive tweaks */
+@media (max-width: 768px) {
+  .hero { height: 55vh; }
+  .hero-tit { font-size: 2rem; }
+  .hero-sub { font-size: 1rem; }
+}

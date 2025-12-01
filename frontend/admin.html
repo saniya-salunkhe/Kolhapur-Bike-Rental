@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Add Bike</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<script>
+async function adminLogin() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const response = await fetch("http://localhost:5000/api/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
+
+  const result = await response.json();
+
+  if (response.ok) {
+    localStorage.setItem("adminToken", result.token);
+    alert("Admin Login Successful");
+    window.location.href = "admin-dashboard.html"; // redirect to admin UI
+  } else {
+    alert(result.message || "Invalid credentials");
+  }
+}
+</script>
+
+<body>
+
+<nav class="navbar navbar-light bg-white shadow-sm px-3">
+  <a class="navbar-brand" href="index.html">🚲 Kolhapur Rentals (Admin)</a>
+  <div class="ms-auto">
+    <button class="btn btn-outline-secondary" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<div class="container mt-4" style="max-width:600px;">
+  <h3 class="text-center">Add New Bike</h3>
+  <div class="card p-4 shadow">
+    <input id="name" class="form-control mb-2" placeholder="Bike Name">
+    <input id="price" class="form-control mb-2" placeholder="Price / Day">
+    <input id="image" class="form-control mb-2" placeholder="Image URL">
+    <button onclick="addBike()" class="btn btn-primary w-100">Add Bike</button>
+  </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
